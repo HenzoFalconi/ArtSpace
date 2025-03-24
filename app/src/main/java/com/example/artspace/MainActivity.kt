@@ -47,7 +47,7 @@ fun LemonadeApp() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
-                    .background(Color(0xFFFFEB3B)),
+                    .background(Color.White),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
