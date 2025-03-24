@@ -26,14 +26,15 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LemonadeApp()
+            EvolutionApp()
         }
     }
 }
 
 @Composable
-fun LemonadeApp() {
+fun EvolutionApp() {
     var currentScreen by remember { mutableStateOf(1) }
+    val totalScreens = 4
 
     MaterialTheme {
         Column(
@@ -47,7 +48,7 @@ fun LemonadeApp() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
-                    .background(Color.White),
+                    .background(Color.Yellow),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
@@ -62,28 +63,28 @@ fun LemonadeApp() {
                     imageRes = R.drawable.image_removebg_preview__6_,
                     description = "Toque para o Charmander evoluir",
                     evolutionText = "1º evolução registrada em 1996",
-                    onNext = { currentScreen = 2 }
+                    onNext = { currentScreen = if (currentScreen == totalScreens) 1 else currentScreen + 1 }
                 )
                 2 -> EvolutionScreen(
                     imageRes = R.drawable.image_removebg_preview__10_,
                     description = "Toque para o Charmeleon evoluir",
                     evolutionText = "2º evolução registrada em 1997",
-                    onNext = { currentScreen = 3 },
-                    onBack = { currentScreen = 1 }
+                    onNext = { currentScreen = if (currentScreen == totalScreens) 1 else currentScreen + 1 },
+                    onBack = { currentScreen = if (currentScreen == 1) totalScreens else currentScreen - 1 }
                 )
                 3 -> EvolutionScreen(
                     imageRes = R.drawable.charizard,
                     description = "Toque para o Charizard mega-evoluir",
                     evolutionText = "3º evolução registrada em 1998",
-                    onNext = { currentScreen = 4 },
-                    onBack = { currentScreen = 2 }
+                    onNext = { currentScreen = if (currentScreen == totalScreens) 1 else currentScreen + 1 },
+                    onBack = { currentScreen = if (currentScreen == 1) totalScreens else currentScreen - 1 }
                 )
                 4 -> EvolutionScreen(
                     imageRes = R.drawable.mega,
                     description = "Clique para voltar ao início",
                     evolutionText = "Mega evolução ativada!",
-                    onNext = { currentScreen = 1 },
-                    onBack = { currentScreen = 3 }
+                    onNext = { currentScreen = if (currentScreen == totalScreens) 1 else currentScreen + 1 },
+                    onBack = { currentScreen = if (currentScreen == 1) totalScreens else currentScreen - 1 }
                 )
             }
         }
@@ -120,10 +121,10 @@ fun EvolutionScreen(
                 }
             },
             fontSize = 16.sp,
-            textAlign = TextAlign.Center, // Centraliza o texto
+            textAlign = TextAlign.Center,
             modifier = Modifier
                 .padding(top = 16.dp)
-                .fillMaxWidth() // Garante que o texto ocupe a largura total
+                .fillMaxWidth()
         )
 
         Row(
@@ -148,5 +149,5 @@ fun EvolutionScreen(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    LemonadeApp()
+    EvolutionApp()
 }
